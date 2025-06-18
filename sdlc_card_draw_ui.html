@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDLC Card Drawer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .card-area {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .pile {
+      width: 320px;
+      height: 420px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background: repeating-linear-gradient(45deg, #ccc, #ccc 10px, #eee 10px, #eee 20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-weight: bold;
+    }
+    #card-container {
+      width: 320px;
+      height: 420px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background: white;
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.6s ease;
+      backface-visibility: hidden;
+    }
+    #card-container.hidden {
+      background: repeating-linear-gradient(45deg, #ccc, #ccc 10px, #eee 10px, #eee 20px);
+      color: transparent;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #3498db;
+      color: white;
+      font-weight: bold;
+    }
+    #controls {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-area">
+    <div id="card-container" class="hidden">Card will appear here</div>
+    <div class="pile" id="discard-pile">Discard Pile</div>
+  </div>
+  <div id="controls">
+    <button id="draw-btn">Draw Card</button>
+    <button id="discard-btn" disabled>Discard</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script>
+    let drawPile = [];
+    let discardPile = [];
+    let currentCard = null;
+
+    const container = document.getElementById('card-container');
+    const discardArea = document.getElementById('discard-pile');
+    const drawBtn = document.getElementById('draw-btn');
+    const discardBtn = document.getElementById('discard-btn');
+
+    fetch('cards.csv')
+      .then(res => res.text())
+      .then(csv => {
+        Papa.parse(csv, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+            drawPile = shuffle([...results.data]);
+          }
+        });
+      });
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    drawBtn.onclick = function() {
+      if (drawPile.length === 0) {
+        drawPile = shuffle([...discardPile]);
+        discardPile = [];
+        discardArea.innerHTML = "Discard Pile";
+      }
+      currentCard = drawPile.shift();
+      showCard(currentCard);
+      discardBtn.disabled = false;
+    }
+
+    discardBtn.onclick = function() {
+      if (currentCard) {
+        discardPile.push(currentCard);
+        const discarded = document.createElement('div');
+        discarded.innerText = currentCard.title;
+        discarded.style.fontSize = '0.75em';
+        discarded.style.color = '#333';
+        discardArea.appendChild(discarded);
+
+        currentCard = null;
+        container.classList.add('hidden');
+        container.innerText = 'Card will appear here';
+        discardBtn.disabled = true;
+      }
+    }
+
+    function showCard(card) {
+      container.classList.remove('hidden');
+      container.style.transform = 'rotateY(180deg)';
+      setTimeout(() => {
+        container.style.transform = 'rotateY(0deg)';
+        container.innerHTML = `
+          <h3>${card.icon} ${card.title}</h3>
+          <p>${card.description1}</p>
+          <p>${card.description2}</p>
+          <div style="margin-top: 12px; font-size: 0.9em;">
+            💰 ${card.coins} &nbsp;&nbsp; ⏱ ${card.days === '-' ? '—' : card.days + ' Day' + (card.days === '1' ? '' : 's')}
+          </div>
+        `;
+      }, 100);
+    }
+  </script>
+</body>
+</html>
