@@ -2,15 +2,15 @@ role,icon,title,description1,description2,coins,days,class
 Senior Developer,&#128187,Senior Developer,You can complete tasks worth 10 points for 1000 coins.,"Move suitable tasks from Backlog to Done, take the payment, and add one day.",1000,1,developer
 Middle Developer,&#128187,Middle Developer,You can complete tasks worth 7 points for 700 coins.,"Move suitable tasks from Backlog to Done, take payment from the budget, and add one day.",700,1,developer
 Junior Developer,&#128187,Junior Developer,You can complete tasks worth 5 points for 500 coins.,"Move suitable tasks from Backlog to Done, take the payment, and add one day.",500,1,developer
-QA Engineer,,QA Engineer,You performed a Smoke Test.,You tested before the demo. The next demo passes on 4â€“6 (surprise demo on 3â€“6). Smoke test doesnâ€™t take a day but costs 200 coins.,200,0,qa
-QA Engineer,,QA Engineer,You performed a Regression Test before the demo.,The next demo passes on 2â€“6 (surprise demo always passes). It takes one day and costs 700 coins.,700,1,qa
+QA Engineer,&#128295,QA Engineer,You performed a Smoke Test.,You tested before the demo. The next demo passes on 4â€“6 (surprise demo on 3â€“6). Smoke test doesnâ€™t take a day but costs 200 coins.,200,0,qa
+QA Engineer,&#128295,QA Engineer,You performed a Regression Test before the demo.,The next demo passes on 2â€“6 (surprise demo always passes). It takes one day and costs 700 coins.,700,1,qa
 Project Manager,&#128188,Project Manager,You secured a bonus for a Developer.,The next developer can do twice as much for 1.5x salary (rounded up to 100 coins).,100,-,pm
 Project Manager,&#128188,Project Manager,You held a Team Building.,Next 2 developers can do 2 extra points. Team building cost 200 coins.,200,-,pm
 Project Manager,&#128188,Project Manager,You visited the client.,+1 to the demo dice roll. You spent 1 day and 500 coins.,500,1,pm
-Analyst,,Analyst,You discovered new requirements.,Add 2 tasks from the pile to the Backlog.,-,-,analyst
-Analyst,,Analyst,You refined the requirements in detail.,Add 4 tasks from the pile to the Backlog. Take 400 coins.,400,-,analyst
-Analyst,,Analyst,You reworked the requirements.,Take 2 tasks from the Backlog and 3 from the pile. Choose any 3 and place them in the Backlog.,-,-,analyst
-Client,&#128176,Client,Urgent feature.,Place a random task from the pile into Backlog. It must be done the next day. Once completed â€” surprise demo.,1000*,1,client
+Analyst,&#128300,Analyst,You discovered new requirements.,Add 2 tasks from the pile to the Backlog.,-,-,analyst
+Analyst,&#128300,Analyst,You refined the requirement.,Add 4 tasks from the pile to the Backlog. Take 400 coins.,400,-,analyst
+Analyst,&#128300,Analyst,You reworked the requirements.,Take 2 tasks from the Backlog and 3 from the pile. Choose any 3 and place them in the Backlog.,-,-,analyst
+Client,&#128176,Client,Urgent feature.,Place a random task from the pile into Backlog. It must be done the next day. Once completed - surprise demo.,1000*,1,client
 Client,&#128176,Client,Change of plans.,Remove 2 tasks from the Backlog and replace them with 2 random tasks from the pile.,-,-,client
-Client,&#128176,Client,A misunderstanding occurred.,Remove a random task from Done (reclaim payment) and add 2 from the pile to the Backlog.,-,-,client
-Client,&#128176,Client,You want a Surprise Demo.,"If tasks > days passed, pay team 1000 bonus coins. If not â€” remove 1500 from account. Surprise demo passes easier, on 4â€“6 without modifiers.",±1000/1500,-,client
+Client,&#128176,Client,A Misunderstanding occurred.,Remove a random task from Done (reclaim payment) and add 2 from the pile to the Backlog.,-,-,client
+Client,&#128176,Client,You want a Surprise Demo.,"If tasks Done > days Passed, pay team 1000 bonus coins. If not - remove 1500 from account. Surprise demo passes easier, on 4â€“6 without modifiers.",±1000/1500,-,client
