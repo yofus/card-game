@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDLC Game Cards</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .card {
+      width: 300px;
+      border-radius: 12px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid;
+    }
+    .developer {
+      background: #fff8ea;
+      border-color: #f1c40f;
+    }
+    .qa {
+      background: #eaf9ff;
+      border-color: #3498db;
+    }
+    .pm {
+      background: #f4eaff;
+      border-color: #9b59b6;
+    }
+    .analyst {
+      background: #eaffea;
+      border-color: #2ecc71;
+    }
+    .client {
+      background: #ffeaea;
+      border-color: #e74c3c;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      border-bottom: 2px solid currentColor;
+      padding-bottom: 6px;
+    }
+    .card p {
+      margin: 6px 0;
+    }
+    .highlight {
+      color: #e67e22;
+      font-weight: bold;
+    }
+    .footer {
+      margin-top: 12px;
+      font-size: 0.9em;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div id="cards"></div>
+  <script src="papaparse.min.js"></script>
+  <script>
+    fetch('cards.csv')
+      .then(response => response.text())
+      .then(csv => {
+        Papa.parse(csv, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+            const container = document.getElementById('cards');
+            results.data.forEach(card => {
+              const div = document.createElement('div');
+              div.className = `card ${card.class}`;
+              div.innerHTML = `
+                <h3>${card.icon} ${card.title}</h3>
+                <p>${card.description1}</p>
+                <p>${card.description2}</p>
+                <div class="footer">
+                  <span>💰 ${card.coins}</span>
+                  <span>⏱ ${card.days === '-' ? '—' : card.days + ' Day' + (card.days === '1' ? '' : 's')}</span>
+                </div>
+              `;
+              container.appendChild(div);
+            });
+          }
+        });
+      });
+  </script>
+</body>
+</html>
