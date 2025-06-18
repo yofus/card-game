@@ -87,24 +87,16 @@
             const container = document.getElementById('cards');
             results.data.forEach(card => {
               const div = document.createElement('div');
-              div.className = 'card ${card["class"]}';
-              let roleIcon = {
-                developer: '👨‍💻',
-                qa: '🔧',
-                pm: '💼',
-                analyst: '🧠',
-                client: '🎯'
-              }[card["class"]] || '';
-              div.innerHTML = '
-                <div style="font-size: 2em; margin-bottom: 8px;"></div>
-                <h3>${roleIcon} ${card.title}</h3
+              div.className = `card ${card["class"]}`;
+              div.innerHTML = `
+                <h3>${card.icon} ${card.title}</h3>
                 <p>${card.description1}</p>
                 <p>${card.description2}</p>
                 <div class="footer">
                   <span>💰 ${card.coins}</span>
                   <span>⏱ ${card.days === '-' ? '—' : card.days + ' Day' + (card.days === '1' ? '' : 's')}</span>
                 </div>
-              ';
+              `;
               container.appendChild(div);
             });
           }
